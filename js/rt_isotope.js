@@ -9,11 +9,11 @@
   
 		// cache container
 		var $holder = $(this).parents('.content_block_background:eq(0)');
-		var $container = $(this).find('.portfolio_boxes');
+		var $container = $(this).find('.portfolio_boxes, .product_boxes');
 		var $filter_navigation = $(this).find('.filter_navigation');
 
 			$(this).css("paddingTop","1px"); 
-			$(this).find(".portfolio_boxes").css({"paddingTop":"1px"});
+			$(this).find(".portfolio_boxes, .product_boxes").css({"paddingTop":"1px"});
 			$(this).css("opacity",1); 
 			$container.isotope({
 			itemSelector:'.box', 
