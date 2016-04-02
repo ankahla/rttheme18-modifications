@@ -1446,6 +1446,47 @@ if( ! function_exists("rt_products") ){
 		) );
 	} 
 	 
+	//add scripts and nav if filterable
+	if( ! empty( $filterable ) ){
+
+ 
+		wp_enqueue_script('isotope-js', RT_THEMEURI  . '/js/jquery.isotope.min.js',  array(), "", true ); 	 	
+		wp_enqueue_script('rt-run-isotope', RT_THEMEURI  . '/js/rt_isotope.js',  array(), "", true ); 	 	
+
+		//js script to run
+		printf('
+			<script type="text/javascript">
+			 /* <![CDATA[ */ 
+				// run isotope
+					jQuery(window).load(function() { 
+						jQuery("#%s").rt_run_isotope();
+					}); 
+			/* ]]> */	
+			</script>
+		',$id);					
+ 
+
+		if( ! empty( $categories ) ){  
+			if(is_array($categories)){ 
+				foreach ($categories as $arrayorder => $termID) { 
+					$sortCategories = get_term_by('id', $termID, 'portfolio_categories');
+					$sortNavigation  .= '<li><a href="#" data-filter=".'.$sortCategories->slug.'">'.$sortCategories->name.'</a></li>';
+				}
+			}  
+
+		}else{
+			$sortCategories  = get_terms( 'product_categories', 'orderby=name&hide_empty=1&order=ASC' );
+			$sortCategories  = is_array($sortCategories) ? $sortCategories : "";
+
+			foreach ($sortCategories as $key => $term) {
+				$sortNavigation  .= '<li><a data-filter=".'.$term->slug.'">'.$term->name.'</a></li>';
+			}	
+		}
+ 
+		$filter_holder = ! empty( $sortNavigation ) ? sprintf('<div class="filter-holder"><ul class="filter_navigation">%s %s</ul></div>','<li><a href="#" data-filter="*" class="active animate">'.__("show all","rt_theme").'</a></li>',$sortNavigation) : "";
+
+	}
+	
 	ob_start();
  
 	$theQuery  = new WP_Query($args); 
@@ -1479,7 +1520,9 @@ if( ! function_exists("rt_products") ){
 	$last_row = "";
 
 	echo '<div id="'.$id.'" class="product_holder product-showcase clearfix '.$add_holder_class.' ">';
-
+	
+	echo $filter_holder;
+	
 	echo '<div class="product_boxes" data-rt-animation-group="group">';
 
 
