@@ -7,7 +7,7 @@ global $rt_item_width, $rt_sidebar_location, $rt_display_descriptions, $rt_displ
 
 //taxonomy expeptions  
 if (is_tax()){
-	//$rt_display_descriptions = $rt_display_titles = true;
+	$rt_display_descriptions = $rt_display_titles = true;
 	$rt_display_price = get_option( RT_THEMESLUG."_show_price_in_list");
 }
 
@@ -38,7 +38,14 @@ $image_output = get_resized_image_output( array( "image_url" => trim($image), "i
 
 if( ! empty( $image_output ) ):?>
 	<!-- product image -->
-	<div class="featured_image"> 
+	<div class="featured_image">
+    <?php
+		if ( $rt_display_price ){
+			
+			// call product price - hooked in /rt-framework/functions/theme_functions.php
+			do_action( "rt_product_price", array( "regular_price" => $regular_price, "sale_price" => $sale_price) );
+		}
+		?>
 			<a href="<?php echo $permalink;?>" title="<?php echo $title; ?>" rel="bookmark" ><?php echo $image_output; ?></a> 
 	</div> 
 <?php endif;?>
@@ -53,15 +60,6 @@ if( ! empty( $image_output ) ):?>
 		<?php endif;?>
 
 		<!-- text-->
-		<?php echo ! empty( $short_desc ) && $rt_display_descriptions ? sprintf( '<p>%s</p>', $short_desc ) : "" ; ?>
-
-		<?php
-		if ( $rt_display_price ){
-			
-			// call product price - hooked in /rt-framework/functions/theme_functions.php
-			do_action( "rt_product_price", array( "regular_price" => $regular_price, "sale_price" => $sale_price) );
-		}
-		?> 
-
+		<?php //echo ! empty( $short_desc ) && $rt_display_descriptions ? sprintf( '<p>%s</p>', $short_desc ) : "" ; ?>
 	</div>
 <?php endif;?>	

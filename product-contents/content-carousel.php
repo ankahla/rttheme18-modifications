@@ -35,7 +35,18 @@ $image_output = get_resized_image_output( array( "image_url" => trim($image), "i
 
 if( ! empty( $image_output ) ):?>
 	<!-- product image -->
- 
+<?php 
+		#
+		# call product price 
+		# @hooked in /rt-framework/functions/theme_functions.php
+		#
+
+		if ( get_option( RT_THEMESLUG."_show_price_in_carousels") ){
+			// call product price - hooked in /rt-framework/functions/theme_functions.php
+			do_action( "rt_product_price", array( "regular_price" => $regular_price, "sale_price" => $sale_price) );
+		}
+
+	?> 
 	<div class="imgeffect">
 		<a href="<?php echo $permalink;?>" class="icon-link single" title="<?php echo $title; ?>" rel="bookmark" ></a>
 		<?php echo $image_output; ?>
@@ -51,18 +62,4 @@ if( ! empty( $image_output ) ):?>
 	// short description
 	// uncomment the following line to display short description of the item in the carousel
 	// echo ! empty( $short_desc ) ? sprintf( '<p>%s</p>', $short_desc ) : "" ; 
-	?>
-
-	<?php 
-		#
-		# call product price 
-		# @hooked in /rt-framework/functions/theme_functions.php
-		#
-
-		if ( get_option( RT_THEMESLUG."_show_price_in_carousels") ){
-			// call product price - hooked in /rt-framework/functions/theme_functions.php
-			echo '<div class="space margin-b10"></div>';
-			do_action( "rt_product_price", array( "regular_price" => $regular_price, "sale_price" => $sale_price) );
-		}
-
 	?>
