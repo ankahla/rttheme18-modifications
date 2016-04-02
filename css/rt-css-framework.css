@@ -44,7 +44,6 @@
 		float:left;
 		margin: 0;  
 		position: relative; 	 
-		-webkit-transform: translateZ(0);
 	}
 
 	.sidebar.left{
@@ -153,7 +152,7 @@
 
 	/* columns common style */
 	.box{
-		margin:0 0 0 20px;
+		margin:0 0 20px 20px;
 		padding: 0;
 		display:inline; 
 		float:left;
@@ -181,12 +180,12 @@
 		margin:0;
 		width:100%;
 		z-index: 1;
-		padding: 30px 20px 20px; 
-		-o-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
+		padding: 0px 20px 20px; 
+/*		-o-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
 		-webkit-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
 		-moz-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);
 		box-shadow: 0 4px 0 rgba(0, 0, 0, 0.04);	
-		border: 1px solid #EDEDED;	
+		border: 1px solid #EDEDED;	*/
 	} 
 
 
@@ -223,28 +222,18 @@
 	}
 
 	/* first and last column fix*/
-	body:not(.rtl) .box.first:before { content: ""; display: table; } 
-	body:not(.rtl) .box.first{clear: both; margin-left:0px !important; zoom: 1;}   
-	body:not(.rtl) .box.last{clear: right; margin-right:0px !important; zoom: 1;}
-	body:not(.rtl) .box.last:after{ content: ""; display: table; }
+	.box.first:before { content: ""; display: table; } 
+	.box.first{clear: both; margin-left:0px !important; zoom: 1;}   
+	.box.last{clear: right; margin-right:0px !important; zoom: 1;}
+	.box.last:after{ content: ""; display: table; }
 
-	body:not(.rtl) .box .first,
-	body:not(.rtl) .content.left .first,
-	body:not(.rtl) .content.right .first
-	{
-		margin-left:0px !important;
-	} 
+	.box .first,.content.left .first,.content.right .first{margin-left:0px !important;} 
+	.box .last,.content.left .last,.content.right .last{margin-right:0px !important;}
 
-	body:not(.rtl) .box .last,
-	body:not(.rtl) .content.left .last,
-	body:not(.rtl) .content.right .last{
-		margin-right:0px !important;
-	}
-
-	body:not(.rtl) .row .box:first-child,
-	body:not(.rtl) .row .box:first-child,
-	body:not(.rtl) .content.left .row .box:first-child,
-	body:not(.rtl) .content.right .row .box:first-child
+	.row .box:first-child,
+	.row .box:first-child,
+	.content.left .row .box:first-child,
+	.content.right .row .box:first-child
 	{
 		margin-left:0px !important;
 	}
@@ -523,9 +512,6 @@
 		.responsive .with_icons.big_icons li.last:after  { margin-bottom: 0;}
 
 
-		.responsive .full_width_row .content_block > .content > .row > .box {margin: 0;}
-		.responsive .full_width_row .content_block > .content > .row > .box {padding-right:20px;padding-left:20px;}
-
 		/* visibilities */
 		.responsive .visible_small_screen{
 			display: block;
@@ -610,9 +596,6 @@
 		display:table;	
 	}
 
-	.hidden{
-		display: none;
-	}
 
 	/* responsive images */
 	.content img{
