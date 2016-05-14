@@ -1380,9 +1380,9 @@ if( ! function_exists("rt_products") ){
 		'with_effect'	=> "", 
 		"no_top_border" => "",
 		"ids" => "",
-		"no_bottom_border" => ""
+		"no_bottom_border" => "",
+		"filterable" => "true"
 	), $atts));
-
 
 	//product id numbders
 	$ids = ! empty( $ids ) ? explode(",", trim( $ids ) ) : array();
@@ -1395,6 +1395,9 @@ if( ! function_exists("rt_products") ){
 
 	//layout name values
 	$layout_values = array('','one', 'two', 'three', 'four', 'five');
+	
+	//filters
+	$filterable = $filterable == "false" ? false : $filterable;
 
 	//pagination
 	$pagination = $pagination == "false" ? false : $pagination;	
@@ -1445,7 +1448,7 @@ if( ! function_exists("rt_products") ){
 
 		) );
 	} 
-	 
+
 	//add scripts and nav if filterable
 	if( ! empty( $filterable ) ){
 
